@@ -1,2 +1,5 @@
 networkVariables.h
 privateInfo.h
+.vscode/
+.idea/
+*.iml
