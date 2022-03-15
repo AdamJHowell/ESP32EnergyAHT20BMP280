@@ -1,7 +1,9 @@
 /*
- * This sketch is a branc of my PubSubWeather sketch.
- * This sketch will use a AHT20/BMP280 combination sensor to show temperature, pressure, and humidity.
+ * This sketch is a branch of my PubSubWeather sketch.
+ * This sketch will use a AHT20/BMP280 combination sensor to show temperature, pressure, estimated altitude, and humidity.
  * The ESP-32 SDA pin is GPIO21, and SCL is GPIO22.
+ * @copyright   Copyright © 2022 Adam Howell
+ * @licence     The MIT License (MIT)
  */
 #include "WiFi.h"						// This header is part of the standard library.  https://www.arduino.cc/en/Reference/WiFi
 #include <Wire.h>						// This header is part of the standard library.  https://www.arduino.cc/en/reference/wire
@@ -21,8 +23,8 @@
 //const char* wifiPassword = "yourPassword";		// Typically kept in "privateInfo.h".
 //const char* mqttBroker = "yourBrokerAddress";	// Typically kept in "privateInfo.h".
 //const int mqttPort = 1883;							// Typically kept in "privateInfo.h".
-const char* mqttTopic = "ajhWeather";
-const char* mqttEnergyTopic = "ajhEnergy";
+const char* mqttTopic = "espWeather";
+const char* mqttEnergyTopic = "espEnergy";
 const char clientId[31] = "ESP32withSCT013";
 const char sketchName[35] = "ESP32CurrentVoltageAHT20BMP280.ino";
 const char* notes = "HiLetgo ESP32 with SCT013, AHT20, and BMP280";
@@ -54,6 +56,7 @@ void setup()
 	Serial.println();
 	Serial.print( "Running setup() in " );
 	Serial.println( sketchName );
+	Serial.println( __FILE__ );
 	Wire.begin();	// Join I2C bus.
 
 	Serial.println( "Initializing the BMP280 sensor..." );
