@@ -31,7 +31,7 @@ const char* notes = "HiLetgo ESP32 with SCT013, AHT20, and BMP280";
 String ipString = "127.0.0.1";
 char macCharArray[18];
 int loopCount = 0;
-int mqttPublishDelayMS = 60000;
+int publishDelay = 60000;
 int ADC_GPIO = 36;	// GPIO 36 is channel 0 of ADC 1 on an ESP32.
 float seaLevelPressure = 1018.0;		// Mean Sea Level in Pa.
 
@@ -343,8 +343,9 @@ void loop()
 		Serial.println( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n" );
 	}
 
-	Serial.print( "Pausing for " );
-	Serial.print( mqttPublishDelayMS / 1000 );
-	Serial.println( " seconds..." );
-	delay( mqttPublishDelayMS );	// Wait for the configured time.
+	lastPublish = millis();
+	Serial.print( "Next publish in " );
+	Serial.print( publishDelay / 1000 );
+	Serial.println( " seconds.\n" );
+	delay( publishDelay );	// Wait for the configured time.
 } // End of loop() function.
